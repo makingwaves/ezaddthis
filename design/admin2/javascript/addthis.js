@@ -60,26 +60,28 @@ $(document).ready(function(){
         dataType: 'jsonp',
         jsonp:'jsonpcallback', 
         cacheResults: true,
-        success:  function(json_content){
-            
-            // updating services IDs after changing them
-            $('.add-this-base').live('blur',function(){
-                var values = $.parseJSON($('.add-this-content-item').val());
-                var keys = Services.getKeys(values);
-                
-                $(this).parents('.ezcca-edit-add_this').find('.add-this-final-ids').val(keys);
-            });       
+        success:  function(json_content){     
     
             // setting up the data in the object
             Services.setData(json_content.data);
     
             $('.add-this-base').each(function(){
+                
                 var input = $(this);
                 var all_values = Services.getAllValues();
+                
+                // updating services IDs after changing them
+                input.live('blur',function(){
+                    var values = $.parseJSON(input.parents('.ezcca-edit-datatype-addthis').find('.add-this-content-item').val());
+                    var keys = Services.getKeys(values);
+
+                    input.parents('.ezcca-edit-datatype-addthis').find('.add-this-final-ids').val(keys);
+                }); 
+            
                 $(this).textext({
                     plugins : 'tags autocomplete suggestions filter',
                     suggestions: all_values,
-                    tagsItems: Services.getValues(input.parents('.ezcca-edit-add_this').find('.add-this-final-ids').val()),
+                    tagsItems: Services.getValues(input.parents('.ezcca-edit-datatype-addthis').find('.add-this-final-ids').val()),
                     filterItems: all_values,
                     html: {
                         hidden: '<input type="hidden" class="add-this-content-item"/>'
