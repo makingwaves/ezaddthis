@@ -243,7 +243,8 @@ class addthisType extends eZDataType
     */
     function objectAttributeContent( $contentObjectAttribute )
     {
-        return $contentObjectAttribute->attribute( 'data_text' );
+        $data_text = $contentObjectAttribute->attribute( 'data_text' );
+        return explode(',', $data_text);
     }
 
     /*!
