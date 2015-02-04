@@ -71,7 +71,7 @@ $(document).ready(function(){
                 var all_values = Services.getAllValues();
                 
                 // updating services IDs after changing them
-                input.live('blur',function(){
+                input.on('blur',function(){
                     var values = $.parseJSON(input.parents('.ezcca-edit-datatype-addthis').find('.add-this-content-item').val());
                     var keys = Services.getKeys(values);
 
